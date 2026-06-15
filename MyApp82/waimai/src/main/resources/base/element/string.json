@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "WaimaiAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "WaimaiAbility_label",
+      "value": "label"
+    }
+  ]
+}

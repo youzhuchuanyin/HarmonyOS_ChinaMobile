@@ -1,0 +1,11 @@
+{
+  "app": {
+    "bundleName": "fei.home.myapp",
+    "patchVersionCode": 2000010,
+    "versionCode": 1000000
+  },
+  "module": {
+    "name": "entry",
+    "type": "hotreload"
+  }
+}

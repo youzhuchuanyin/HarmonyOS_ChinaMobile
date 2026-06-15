@@ -1,0 +1,5 @@
+{
+  "libwaimai.so": {
+    "source": "src/mock/Libwaimai.mock.ets"
+  }
+}

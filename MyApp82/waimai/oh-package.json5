@@ -1,0 +1,11 @@
+{
+  "name": "waimai",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {//index.d.ts的位置
+    "libwaimai.so": "file:./src/main/cpp/types/libwaimai"
+  }
+}

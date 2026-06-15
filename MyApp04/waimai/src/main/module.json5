@@ -1,0 +1,51 @@
+{
+  "module": {
+    "name": "waimai",
+    "type": "entry",//点击应用图标默认进入外卖
+    "description": "$string:module_desc",
+    "mainElement": "WaimaiAbility",//窗口对象
+    "deviceTypes": [
+      "phone",
+      "tablet"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,//原子服务就是小程序可以不用安装
+    "pages": "$profile:main_pages",//路由词典
+    "abilities": [
+      {
+        "name": "WaimaiAbility",
+        "srcEntry": "./ets/waimaiability/WaimaiAbility.ets",
+        "description": "$string:WaimaiAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:WaimaiAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "ohos.want.action.home"
+            ]
+          }
+        ]
+      }
+    ],
+    "extensionAbilities": [
+      {
+        "name": "WaimaiBackupAbility",
+        "srcEntry": "./ets/waimaibackupability/WaimaiBackupAbility.ets",
+        "type": "backup",
+        "exported": false,
+        "metadata": [
+          {
+            "name": "ohos.extension.backup",
+            "resource": "$profile:backup_config"
+          }
+        ],
+      }
+    ]
+  }
+}
