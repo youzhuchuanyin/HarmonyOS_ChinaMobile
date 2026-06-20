@@ -1,6 +1,10 @@
 {
   "module": {
-    "requestPermissions": [{"name": "ohos.permission.INTERNET"}],
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET"
+      }
+    ],
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
@@ -18,10 +22,14 @@
         "name": "EntryAbility",
         "srcEntry": "./ets/entryability/EntryAbility.ets",
         "description": "$string:EntryAbility_desc",
-        "icon": "$media:icon",//默认是 四叶草小透明图标，背景是蓝色
-        "label": "$string:EntryAbility_label",//默认 应用的名字
-        "startWindowIcon": "$media:icon",//点击图标后 默认一个一闪而过的页面 四叶草图标前置
-        "startWindowBackground": "$color:start_window_background",//点击图标后 默认一个一闪而过的页面 白屏背景
+        "icon": "$media:icon",
+        //默认是 四叶草小透明图标，背景是蓝色
+        "label": "$string:EntryAbility_label",
+        //默认 应用的名字
+        "startWindowIcon": "$media:icon",
+        //点击图标后 默认一个一闪而过的页面 四叶草图标前置
+        "startWindowBackground": "$color:start_window_background",
+        //点击图标后 默认一个一闪而过的页面 白屏背景
         "exported": true,
         "skills": [
           {
@@ -33,6 +41,17 @@
             ]
           }
         ]
+      },
+      {
+        "name": "jumpAbility",
+        "srcEntry": "./ets/jumpability/jumpAbility.ets",
+        "launchType": "singleton",    //UIAbility的启动模式：默认是“单例模式”
+       // "launchType": "multiton",       //UIAbility的启动模式：多例模式，每次调用startAbility()都会创建一个新的窗口实例
+        "description": "$string:jumpAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:jumpAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background"
       }
     ],
     "extensionAbilities": [

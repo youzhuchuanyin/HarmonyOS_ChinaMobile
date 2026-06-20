@@ -32,7 +32,8 @@ export default class EntryAbility extends UIAbility {
     console.log('窗口舞台被创建')
     let w=windowStage.getMainWindowSync();
     w.setWindowLayoutFullScreen(true);//侵占到最顶部
-    w.setPreferredOrientation(window.Orientation.LANDSCAPE)//横向
+    //w.setPreferredOrientation(window.Orientation.LANDSCAPE)//横向
+    w.setPreferredOrientation(window.Orientation.PORTRAIT)//横向
     windowStage.loadContent('pages/Index');//加载默认首页
   }
 //窗口舞台被销毁

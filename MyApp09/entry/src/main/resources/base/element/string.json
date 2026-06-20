@@ -11,6 +11,14 @@
     {
       "name": "EntryAbility_label",
       "value": "中国移动"
+    },
+    {
+      "name": "jumpAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "jumpAbility_label",
+      "value": "label"
     }
   ]
 }

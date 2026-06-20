@@ -2,7 +2,7 @@
   "src": [
     "pages/Index",
     "pages/cart",
-    "pages/personal"
-
+    "pages/personal",
+    "pages/jumpPage"
   ]
 }
