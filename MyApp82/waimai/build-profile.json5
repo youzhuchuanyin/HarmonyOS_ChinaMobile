@@ -10,7 +10,7 @@
       "path": "./src/main/cpp/CMakeLists.txt",
       "arguments": "",
       "cppFlags": "",
-      "abiFilters": [
+      "abiFilters": [//当前模块编译匹配的CPU架构类型
         "arm64-v8a",
         "x86_64"
       ]

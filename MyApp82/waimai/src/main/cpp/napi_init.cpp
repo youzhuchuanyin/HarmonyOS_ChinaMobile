@@ -1,7 +1,16 @@
 #include "napi/native_api.h"//该头文件中定义了若干napi_*开头的新 数据类型 和 函数
+#include <cstdint>
+//虽然不会报错，但只能在c/c++源码里调用，在ArkTs里是用不了的
+int add(int a,int b){
+    int c;
+    return c=a+b;
+}
+
 //napi_value类型：指代一切ArkTs中的数据类型，到了c程序中需要使用特别的函数进行类型转换
 //napi_env类型：c程序运行所处的上下文环境，类似于ArkTs中的Context
 //napi_callback_info类型：指当前函数在ArkTs中被调用的情况
+//这是系统声明的
+//=================napi 相当于 中间层=====================
 static napi_value Add(napi_env env, napi_callback_info info)
 {
     size_t argc = 2;
@@ -27,20 +36,54 @@ static napi_value Add(napi_env env, napi_callback_info info)
     return sum;
 
 }
-//声明一个供ArkTs调用的函数F1：接收三个正数作为参数，返回他们的和
-napi_value F1(napi_env env, napi_callback_info info){
-    //1.读取实参（只要UI界面使用了方法，那它必然会传回实参的，在这里也称回调）
-    //-,-,参数个数，参数数组，null，null
+//我 声明一个供ArkTs调用的函数F1：接收三个正数作为参数，返回他们的和
+napi_value F2(napi_env env, napi_callback_info info){
+    //第一步：读取实参（只要UI界面使用了方法，那它必然会传回实参的，在这里也称回调）
     size_t argc=3;
-    napi_value argv[3]={};//我试一下不写nullptr会怎样
-    napi_get_cb_info(env, info, &argc, argv,nullptr,nullptr);
+    napi_value _argv[3]={nullptr};//我试一下不写nullptr会怎样，会报错TypeError: undefined is not callable
+    //（-,-,参数个数，参数数组，null，null）
+    napi_get_cb_info(env, info, &argc, _argv,nullptr,nullptr);
+    //第二步：把实参的ArkTs参数转换成C类型
+    int32_t n1,n2,n3;
+    napi_get_value_int32(env, _argv[0],  &n1);
+    napi_get_value_int32(env, _argv[1],  &n2);
+    napi_get_value_int32(env, _argv[2],  &n3);
+    //第三步：终于可以写正常的c语言了
+    int32_t sum=n1+n2+n3;
+    //第四步：转换成ArkTs能认识的类型
+    napi_value _sum;
+    napi_create_int32(env, sum,&_sum);
+    return _sum;
 }
-
+napi_value F1(napi_env env, napi_callback_info cb)
+{
+    //第一步：读取实参
+    size_t argc = 3;       //实参数量
+    napi_value args[3] = {nullptr};     //实参数组
+    napi_get_cb_info(env, cb, &argc, args, nullptr, nullptr);   //读取实参数量和数值
+    
+    //第二步：把实参由ArkTS类型转换为C类型
+    int32_t n0, n1, n2;
+    napi_get_value_int32(env, args[0], &n0);     //把ArkTS传来的第0个实参转换为C数据
+    napi_get_value_int32(env, args[1], &n1);     //把ArkTS传来的第1个实参转换为C数据
+    napi_get_value_int32(env, args[2], &n2);     //把ArkTS传来的第2个实参转换为C数据
+    
+    //第三步：执行业务逻辑：算术运算 + 文件处理 + 压缩解压缩 + 加密解密 + 大数据处理 + ...
+    int32_t sum = n0 + n1 + n2 + 2000;
+    
+    //第四步：把C类型转换为ArkTS类型，并返回
+    napi_value result;
+    napi_create_int32(env, sum, &result);   //把C数据转换为ArkTS数据
+    return result;
+}
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
     napi_property_descriptor desc[] = {
-        { "add", nullptr, Add, nullptr, nullptr, nullptr, napi_default, nullptr }
+        { "add", nullptr, Add, nullptr, nullptr, nullptr, napi_default, nullptr },
+        //在这里加上我 新增的F1函数
+        { "f1", nullptr, F1, nullptr, nullptr, nullptr, napi_default, nullptr },
+        
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;

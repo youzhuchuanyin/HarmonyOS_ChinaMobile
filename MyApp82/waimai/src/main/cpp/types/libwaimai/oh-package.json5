@@ -1,4 +1,4 @@
-{
+{//真正的文件在哪 /Index.d.ts
   "name": "libwaimai.so",
   "types": "./Index.d.ts",
   "version": "1.0.0",

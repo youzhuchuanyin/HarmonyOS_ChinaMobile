@@ -6,7 +6,7 @@ class DiscountSource implements IDataSource {
   dataSource: discountData[] = []
   dataListener?: DataChangeListener
 
-  //自定义函数：
+  //自定义函数：外部得到的一大堆数据，放到这里来接收处理
   inject(_discountdata: discountData[]) {
     this.dataSource = _discountdata //接收外来数据
     this.dataListener?.onDataReloaded() //内部赋值
@@ -42,7 +42,7 @@ class DiscountSource implements IDataSource {
   //优惠界面
 struct page08 {
   @State _discountdata: discountData[] = []
-  //实例化一个对象
+  //实例化一个数据源对象
   ds: DiscountSource = new DiscountSource()
 
   async onPageShow() {
